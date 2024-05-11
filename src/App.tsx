@@ -1,14 +1,16 @@
-import Home from './Body/Home';
+import Home from './body/Home';
+import CountryData from './countries_data/CountryData';
 import NavBar from './NavBar';
 
 function App() {
   return (
     <>
-      <div className="mx-5">
+      <header className="mx-5">
         <NavBar />
-      </div>
-      <main className="mx-4 mt-[7rem]">
+      </header>
+      <main className="mx-4 mt-[6.5rem]">
         <Home />
+        <CountryData />
       </main>
     </>
   );
