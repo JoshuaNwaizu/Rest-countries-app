@@ -20,13 +20,15 @@ const SelectCountry = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-2 ">
+      <div className="flex flex-col ">
         <div className="flex items-center justify-between w-[60%] px-6 py-4 bg-[#fff] shadow-md rounded-lg">
           <p className=" text-[#111517]">
             {optionTitle ? optionTitle : 'Filter by Region'}
           </p>
           <span
-            className=" text-[1.5rem] cursor-pointer"
+            className={`text-[1.5rem] cursor-pointer transition-all duration-150 ${
+              openSelectBox ? 'rotate-180' : ''
+            }`}
             onClick={() => handleOpenSelect()}
           >
             <RiArrowDropDownLine />
@@ -34,8 +36,8 @@ const SelectCountry = () => {
         </div>
 
         <div className={` ${openSelectBox ? 'block' : 'hidden'}`}>
-          <div className="flex flex-col w-[55.5%] gap-2 px-6 py-4 bg-[#fff] shadow-md rounded-lg absolute">
-            {continent.map((item) => (
+          <div className="flex flex-col w-[55.5%] gap-2 px-6 py-4 bg-[#fff] shadow-md rounded-lg absolute mt-2">
+            {continent.map((item: string) => (
               <p
                 key={item}
                 onClick={() => handleSelectOption(item)}
