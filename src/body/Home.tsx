@@ -2,10 +2,13 @@
 
 import SearchBar from './SearchBar';
 
-const Home = () => {
+import CountryData from '../countries_data/CountryData';
+
+const Home = ({ isCountries }) => {
   return (
     <>
       <SearchBar />
+      <CountryData isCountries={isCountries} />
     </>
   );
 };
