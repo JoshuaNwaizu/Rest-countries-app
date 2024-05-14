@@ -74,7 +74,7 @@ const CountryInfo = () => {
                     </li>
                     <li>
                       <strong>Population: </strong>
-                      {country.population}
+                      {country.population.toLocaleString('en-US')}
                     </li>
                     <li>
                       <strong>Region: </strong>
@@ -82,7 +82,7 @@ const CountryInfo = () => {
                     </li>
                     {country.subregion && (
                       <li>
-                        <strong>Sub Region</strong> {country.subregion}
+                        <strong>Sub Region:</strong> {country.subregion}
                       </li>
                     )}
 
@@ -102,16 +102,16 @@ const CountryInfo = () => {
                     <strong>Currencies: </strong> {country.currencies[0]}
                   </li>
                   <li>
-                    <strong>Languages:</strong> {country.languages[0]}
+                    <strong>Languages:</strong>
                   </li>
                 </ul>
 
                 {country.borders && (
                   <div className="flex flex-col gap-4">
                     <h1 className="font-bold text-[16px]">Border Countries</h1>
-                    <div className=" flex flex-row gap-2 items-center  flex-wrap ">
+                    <div className="flex flex-row flex-wrap items-center gap-2 ">
                       {country.borders.map((item) => (
-                        <Link to={`/countries/${item}`}>
+                        <Link to={`/countries/border${item}`}>
                           <button
                             className="bg-[#fff] py-2 px-9 rounded-md shadow-md"
                             key={item}

@@ -3,19 +3,43 @@
 import SearchBar from './SearchBar';
 
 import CountryData from '../countries_data/CountryData';
+type Country = {
+  flags: { png: string; svg: string };
+  name: { common: string; official: string };
+  population: string;
+  region: string;
+  capital: string;
+};
 
-const Home = ({ isCountries, searchedInput, filtered, onHandleSearch }) => {
+interface HomeProps {
+  isCountries: Country[];
+  searchedInput: string;
+  filtered: Country[];
+  onHandleSearch: (searchInput: string) => void;
+  optionTitle: string;
+  setOptionTitle: (title: string) => void;
+  applyingFilters: () => void;
+}
+
+const Home: React.FC<HomeProps> = ({
+  searchedInput,
+  filtered,
+  onHandleSearch,
+  optionTitle,
+  setOptionTitle,
+  applyingFilters,
+}) => {
   return (
     <>
       <SearchBar
         searchedInput={searchedInput}
         onHandleSearch={onHandleSearch}
+        optionTitle={optionTitle}
+        setOptionTitle={setOptionTitle}
+        applyingFilters={applyingFilters}
       />
 
-      <CountryData
-        isCountries={isCountries}
-        filtered={filtered}
-      />
+      <CountryData filtered={filtered} />
     </>
   );
 };

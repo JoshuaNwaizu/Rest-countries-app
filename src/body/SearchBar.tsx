@@ -1,9 +1,21 @@
-// import React from 'react';
-
 import { IoSearch } from 'react-icons/io5';
 import SelectCountry from './SelectCountry';
-// import { useState } from 'react';
-const SearchBar = ({ searchedInput, onHandleSearch }) => {
+import React from 'react';
+
+interface SearchProps {
+  searchedInput: string;
+  onHandleSearch: (searchInput: any) => void;
+  optionTitle: string;
+  setOptionTitle: (title: string) => void;
+  applyingFilters: () => void;
+}
+const SearchBar: React.FC<SearchProps> = ({
+  searchedInput,
+  onHandleSearch,
+  optionTitle,
+  setOptionTitle,
+  applyingFilters,
+}) => {
   return (
     <div className="flex flex-col gap-9">
       <div className="bg-[#fff] py-4 flex flex-row items-center gap-6 px-8 shadow-md rounded-lg">
@@ -18,7 +30,11 @@ const SearchBar = ({ searchedInput, onHandleSearch }) => {
           onChange={onHandleSearch}
         />
       </div>
-      <SelectCountry />
+      <SelectCountry
+        optionTitle={optionTitle}
+        setOptionTitle={setOptionTitle}
+        applyingFilters={applyingFilters}
+      />
     </div>
   );
 };

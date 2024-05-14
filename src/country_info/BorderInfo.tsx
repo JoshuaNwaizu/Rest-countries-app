@@ -12,7 +12,7 @@ const BorderInfo = () => {
     const fetchCountries = async (): Promise<void> => {
       try {
         const res = await fetch(
-          `https://restcountries.com/v3.1/borders/${border}`
+          `https://restcountries.com/v3.1/border/${border}`
         );
         const data: string[] = await res.json();
         setBorderData(data);

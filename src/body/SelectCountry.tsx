@@ -1,12 +1,21 @@
 // import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
-const continent: string[] = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+interface CountryProps {
+  optionTitle: string;
+  setOptionTitle: (title: string) => void;
+  applyingFilters: () => void;
+}
 
-const SelectCountry = () => {
+const continent: string[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+
+const SelectCountry: React.FC<CountryProps> = ({
+  optionTitle,
+  setOptionTitle,
+  applyingFilters,
+}) => {
   const [openSelectBox, setOpenSelectedBox] = useState<boolean>(false);
-  const [optionTitle, setOptionTitle] = useState<string>('');
 
   const handleOpenSelect = (): void => {
     setOpenSelectedBox((item) => !item);
@@ -14,8 +23,9 @@ const SelectCountry = () => {
 
   const handleSelectOption = (item: string): void => {
     setOptionTitle(item);
-    console.log(item);
     setOpenSelectedBox(false);
+    applyingFilters();
+    console.log(item);
   };
 
   return (

@@ -3,7 +3,7 @@ import Home from './body/Home';
 import NavBar from './NavBar';
 import CountryInfo from './country_info/CountryInfo';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import BorderInfo from './country_info/BorderInfo';
+// import BorderInfo from './country_info/BorderInfo';
 
 type Country = {
   flags: { png: string; svg: string };
@@ -13,33 +13,34 @@ type Country = {
   capital: string;
 };
 
+type Inputs = string;
+
 const URL: string = 'https://restcountries.com/v3.1/all';
 
 function App() {
   const [isCountries, setIsCountries] = useState<Country[]>([]);
-  // const [regions, setRegions] = useState<string[]>([]);
   const [filtered, setFiltered] = useState<Country[]>([]);
-  const [searchedInput, setSearchedInput] = useState<string>('');
-
-  const [selectedRegion, setSelectedRegion] = useState<string>('All');
+  const [searchedInput, setSearchedInput] = useState<Inputs>('');
+  const [optionTitle, setOptionTitle] = useState<Inputs>('');
 
   const applyingFilters = (): void => {
     let filteredData = isCountries;
 
-    if (selectedRegion !== 'All') {
-      filteredData.filter((country) => country.region === selectedRegion);
+    if (optionTitle) {
+      filteredData = filteredData.filter(
+        (country) => country.region === optionTitle
+      );
+      setFiltered(filteredData);
     }
-
     if (searchedInput) {
       filteredData = filteredData.filter((country) =>
         country.name.common.toString().toLowerCase().includes(searchedInput)
       );
       console.log(filteredData);
-      // setIsCountries(filteredData);
-    } else {
-      setFiltered(isCountries);
-    }
+      setFiltered(filteredData);
 
+      // setIsCountries(filteredData);
+    }
     // setIsCountries(filteredData);
     setFiltered(filteredData);
   };
@@ -59,13 +60,14 @@ function App() {
         const data: Country[] = await res.json();
         console.log(data[0]);
         setIsCountries(data);
+        setFiltered(data);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchCountries();
     applyingFilters();
+    fetchCountries();
   }, []);
 
   return (
@@ -84,6 +86,9 @@ function App() {
                   filtered={filtered}
                   searchedInput={searchedInput}
                   onHandleSearch={handleSearchInput}
+                  optionTitle={optionTitle}
+                  setOptionTitle={setOptionTitle}
+                  applyingFilters={applyingFilters}
                 />
               }
             />
@@ -93,10 +98,10 @@ function App() {
               element={<CountryInfo />}
             />
 
-            <Route
+            {/* <Route
               path="/countries/:borders"
               element={<BorderInfo />}
-            />
+            /> */}
           </Routes>
         </BrowserRouter>
       </main>
