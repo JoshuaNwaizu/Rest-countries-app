@@ -1,10 +1,10 @@
 // import React from 'react'
 import { Link } from 'react-router-dom';
 
-const CountryData = ({ isCountries }) => {
+const CountryData = ({ isCountries, filtered }) => {
   return (
     <section className="flex flex-col gap-12 my-[2.5rem]">
-      {isCountries.map((item) => (
+      {filtered.map((item) => (
         <div
           key={item.name.official}
           className="flex flex-col items-center justify-center "

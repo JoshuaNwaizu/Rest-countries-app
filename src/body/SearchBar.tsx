@@ -2,7 +2,7 @@
 
 import { IoSearch } from 'react-icons/io5';
 import SelectCountry from './SelectCountry';
-import { useState } from 'react';
+// import { useState } from 'react';
 const SearchBar = ({ searchedInput, onHandleSearch }) => {
   return (
     <div className="flex flex-col gap-9">

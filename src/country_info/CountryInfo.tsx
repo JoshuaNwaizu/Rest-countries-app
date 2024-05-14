@@ -13,11 +13,12 @@ type CountryInfo = {
   };
   population: number;
   region: string;
-  subRegion: string;
+  subregion: string;
   capital: string;
   tld: string[];
-  currencies: { currency: { name: string; sign: string } };
+  currencies: any;
   borders: string[];
+  languages: object;
 };
 
 const CountryInfo = () => {
@@ -47,14 +48,14 @@ const CountryInfo = () => {
         </button>
       </Link>
       <div className="flex flex-col items-center justify-center mx-4 my-[4rem]">
-        <div className="w-[352px]">
+        <div className="w-[335px]">
           {countryInfo.map((country) => (
             <>
-              <div key={country.name.official}>
+              <div key={country.flags.png}>
                 <img
                   src={country.flags.png}
                   alt={country.name.common}
-                  className="w-[352px] rounded-md h-[275px]"
+                  className="w-[355px] rounded-md h-[255px]"
                 />
               </div>
 
@@ -79,9 +80,9 @@ const CountryInfo = () => {
                       <strong>Region: </strong>
                       {country.region}
                     </li>
-                    {country.subRegion && (
+                    {country.subregion && (
                       <li>
-                        <strong>Sub Region</strong> {country.subRegion}
+                        <strong>Sub Region</strong> {country.subregion}
                       </li>
                     )}
 
@@ -98,21 +99,30 @@ const CountryInfo = () => {
                     {country.tld}
                   </li>
                   <li>
-                    <strong>Currencies: </strong> {country.tld}
+                    <strong>Currencies: </strong> {country.currencies[0]}
                   </li>
-                  <li></li>
+                  <li>
+                    <strong>Languages:</strong> {country.languages[0]}
+                  </li>
                 </ul>
 
-                <div className="flex flex-col gap-4">
-                  <h1 className="font-bold text-[16px]">Border Countries</h1>
-                  <div className=" flex flex-row gap-2 items-center justify-center">
-                    {country.borders.map((item) => (
-                      <button className="bg-[#fff] py-2 px-7 rounded-md shadow-md">
-                        {item}
-                      </button>
-                    ))}
+                {country.borders && (
+                  <div className="flex flex-col gap-4">
+                    <h1 className="font-bold text-[16px]">Border Countries</h1>
+                    <div className=" flex flex-row gap-2 items-center  flex-wrap ">
+                      {country.borders.map((item) => (
+                        <Link to={`/countries/${item}`}>
+                          <button
+                            className="bg-[#fff] py-2 px-9 rounded-md shadow-md"
+                            key={item}
+                          >
+                            {item}
+                          </button>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </article>
             </>
           ))}

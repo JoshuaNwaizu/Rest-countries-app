@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 
 import CountryData from '../countries_data/CountryData';
 
-const Home = ({ isCountries, searchedInput, onHandleSearch }) => {
+const Home = ({ isCountries, searchedInput, filtered, onHandleSearch }) => {
   return (
     <>
       <SearchBar
@@ -12,7 +12,10 @@ const Home = ({ isCountries, searchedInput, onHandleSearch }) => {
         onHandleSearch={onHandleSearch}
       />
 
-      <CountryData isCountries={isCountries} />
+      <CountryData
+        isCountries={isCountries}
+        filtered={filtered}
+      />
     </>
   );
 };

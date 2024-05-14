@@ -3,6 +3,7 @@ import Home from './body/Home';
 import NavBar from './NavBar';
 import CountryInfo from './country_info/CountryInfo';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import BorderInfo from './country_info/BorderInfo';
 
 type Country = {
   flags: { png: string; svg: string };
@@ -19,29 +20,35 @@ function App() {
   // const [regions, setRegions] = useState<string[]>([]);
   const [filtered, setFiltered] = useState<Country[]>([]);
   const [searchedInput, setSearchedInput] = useState<string>('');
-  // const [selectedRegion, setSelectedRegion] = useState<string>('All');
 
-  // const applyingFilters = (): void => {
-  //   let filteredData = isCountries;
+  const [selectedRegion, setSelectedRegion] = useState<string>('All');
 
-  //   if (selectedRegion !== 'All') {
-  //     filteredData.filter((country) => country.region === selectedRegion);
-  //   }
+  const applyingFilters = (): void => {
+    let filteredData = isCountries;
 
-  //   if (searchedInput) {
-  //     filteredData = filteredData.filter((country) =>
-  //       country.name.toString().toLowerCase().includes(searchedInput)
-  //     );
-  //     console.log(filteredData);
-  //   }
+    if (selectedRegion !== 'All') {
+      filteredData.filter((country) => country.region === selectedRegion);
+    }
 
-  //   setIsCountries(filteredData);
-  //   setFiltered(filteredData);
-  // };
+    if (searchedInput) {
+      filteredData = filteredData.filter((country) =>
+        country.name.common.toString().toLowerCase().includes(searchedInput)
+      );
+      console.log(filteredData);
+      // setIsCountries(filteredData);
+    } else {
+      setFiltered(isCountries);
+    }
+
+    // setIsCountries(filteredData);
+    setFiltered(filteredData);
+  };
 
   const handleSearchInput = (e: any): void => {
     const value: string = e.target.value;
     setSearchedInput(value);
+    applyingFilters();
+
     console.log(value);
   };
 
@@ -58,8 +65,8 @@ function App() {
     };
 
     fetchCountries();
-    // applyingFilters();
-  }, [filtered]);
+    applyingFilters();
+  }, []);
 
   return (
     <>
@@ -74,6 +81,7 @@ function App() {
               element={
                 <Home
                   isCountries={isCountries}
+                  filtered={filtered}
                   searchedInput={searchedInput}
                   onHandleSearch={handleSearchInput}
                 />
@@ -84,13 +92,14 @@ function App() {
               path="/countries/:name"
               element={<CountryInfo />}
             />
+
+            <Route
+              path="/countries/:borders"
+              element={<BorderInfo />}
+            />
           </Routes>
         </BrowserRouter>
       </main>
-
-      {/* {filtered.map((item, index) => (
-        <div key={index}>{item.capital}</div>
-      ))} */}
     </>
   );
 }
