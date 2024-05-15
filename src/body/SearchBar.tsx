@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchProps> = ({
           type="text"
           placeholder="Search for a country"
           className="py-1 border-none outline-none bg-[#fff] text-[#C4C4C4] font-normal px-3 w-full"
-          value={searchedInput}
+          value={searchedInput.toLowerCase()}
           onChange={onHandleSearch}
         />
       </div>
