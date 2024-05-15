@@ -46,8 +46,6 @@ function App() {
     setFiltered(filteredData);
   };
 
-  
-
   const handleSearchInput = (e: any): void => {
     const value: string = e.target.value;
     setSearchedInput(value);

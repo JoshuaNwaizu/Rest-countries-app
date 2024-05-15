@@ -18,12 +18,12 @@ const SelectCountry: React.FC<CountryProps> = ({
   const [openSelectBox, setOpenSelectedBox] = useState<boolean>(false);
 
   const handleOpenSelect = (): void => {
-    setOpenSelectedBox((item) => !item);
+    setOpenSelectedBox(!openSelectBox);
   };
 
   const handleSelectOption = (item: string): void => {
     setOptionTitle(item);
-    setOpenSelectedBox(false);
+    setOpenSelectedBox(!openSelectBox);
     applyingFilters();
     console.log(item);
   };
