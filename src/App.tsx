@@ -3,6 +3,8 @@ import Home from './body/Home';
 import NavBar from './NavBar';
 import CountryInfo from './country_info/CountryInfo';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ErrorPage from './country_info/ErrorPage';
+import Loading from './Loading';
 // import BorderInfo from './country_info/BorderInfo';
 
 type Country = {
@@ -14,6 +16,7 @@ type Country = {
 };
 
 type Inputs = string;
+type Loading = boolean;
 
 const URL: string = 'https://restcountries.com/v3.1/all';
 
@@ -22,6 +25,7 @@ function App() {
   const [filtered, setFiltered] = useState<Country[]>([]);
   const [searchedInput, setSearchedInput] = useState<Inputs>('');
   const [optionTitle, setOptionTitle] = useState<Inputs>('');
+  const [isLoading, setIsLoading] = useState<Loading>(false);
 
   const applyingFilters = (): void => {
     let filteredData = isCountries;
@@ -38,12 +42,11 @@ function App() {
       );
       console.log(filteredData);
       setFiltered(filteredData);
-
-      // setIsCountries(filteredData);
     }
-    // setIsCountries(filteredData);
     setFiltered(filteredData);
   };
+
+  
 
   const handleSearchInput = (e: any): void => {
     const value: string = e.target.value;
@@ -56,11 +59,13 @@ function App() {
   useEffect(() => {
     const fetchCountries = async (): Promise<void> => {
       try {
+        setIsLoading(true);
         const res = await fetch(URL);
         const data: Country[] = await res.json();
         console.log(data[0]);
         setIsCountries(data);
         setFiltered(data);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -81,27 +86,36 @@ function App() {
             <Route
               path="/"
               element={
-                <Home
-                  isCountries={isCountries}
-                  filtered={filtered}
-                  searchedInput={searchedInput}
-                  onHandleSearch={handleSearchInput}
-                  optionTitle={optionTitle}
-                  setOptionTitle={setOptionTitle}
-                  applyingFilters={applyingFilters}
-                />
+                isLoading ? (
+                  <Loading />
+                ) : (
+                  <Home
+                    isCountries={isCountries}
+                    filtered={filtered}
+                    searchedInput={searchedInput}
+                    onHandleSearch={handleSearchInput}
+                    optionTitle={optionTitle}
+                    setOptionTitle={setOptionTitle}
+                    applyingFilters={applyingFilters}
+                  />
+                )
               }
             />
 
             <Route
               path="/countries/:name"
-              element={<CountryInfo />}
+              element={
+                <CountryInfo
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                />
+              }
             />
 
-            {/* <Route
-              path="/countries/:borders"
-              element={<BorderInfo />}
-            /> */}
+            <Route
+              path="*"
+              element={<ErrorPage />}
+            />
           </Routes>
         </BrowserRouter>
       </main>
