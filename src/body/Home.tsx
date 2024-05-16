@@ -16,9 +16,11 @@ interface HomeProps {
   searchedInput: string;
   filtered: Country[];
   onHandleSearch: (searchInput: string) => void;
-  optionTitle: string;
+  optionTitle: string | undefined;
   setOptionTitle: (title: string) => void;
   applyingFilters: () => void;
+  darkTheme: boolean;
+  handleDarkMode: () => void;
 }
 
 const Home: React.FC<HomeProps> = ({
@@ -28,6 +30,8 @@ const Home: React.FC<HomeProps> = ({
   optionTitle,
   setOptionTitle,
   applyingFilters,
+  darkTheme,
+  handleDarkMode,
 }) => {
   return (
     <>
@@ -37,6 +41,8 @@ const Home: React.FC<HomeProps> = ({
         optionTitle={optionTitle}
         setOptionTitle={setOptionTitle}
         applyingFilters={applyingFilters}
+        darkTheme={darkTheme}
+        handleDarkMode={handleDarkMode}
       />
 
       <CountryData filtered={filtered} />

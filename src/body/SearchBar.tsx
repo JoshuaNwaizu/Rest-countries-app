@@ -5,9 +5,11 @@ import React from 'react';
 interface SearchProps {
   searchedInput: string;
   onHandleSearch: (searchInput: any) => void;
-  optionTitle: string;
+  optionTitle: string | undefined;
   setOptionTitle: (title: string) => void;
   applyingFilters: () => void;
+  darkTheme: boolean;
+  handleDarkMode: () => void;
 }
 const SearchBar: React.FC<SearchProps> = ({
   searchedInput,
@@ -15,6 +17,7 @@ const SearchBar: React.FC<SearchProps> = ({
   optionTitle,
   setOptionTitle,
   applyingFilters,
+  darkTheme,
 }) => {
   return (
     <div className="flex flex-col gap-9">

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
 interface CountryProps {
-  optionTitle: string;
+  optionTitle: string | undefined;
   setOptionTitle: (title: string) => void;
   applyingFilters: () => void;
 }

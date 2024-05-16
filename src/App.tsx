@@ -13,10 +13,13 @@ type Country = {
   population: string;
   region: string;
   capital: string;
+  cca3: string;
+  borders: string[];
 };
 
 type Inputs = string;
 type Loading = boolean;
+type Option = string | undefined;
 
 const URL: string = 'https://restcountries.com/v3.1/all';
 
@@ -24,17 +27,18 @@ function App() {
   const [isCountries, setIsCountries] = useState<Country[]>([]);
   const [filtered, setFiltered] = useState<Country[]>([]);
   const [searchedInput, setSearchedInput] = useState<Inputs>('');
-  const [optionTitle, setOptionTitle] = useState<Inputs>('');
+  const [optionTitle, setOptionTitle] = useState<Option>('');
   const [isLoading, setIsLoading] = useState<Loading>(false);
+  const [darkTheme, setDarkTheme] = useState<Loading>(false);
 
   const applyingFilters = (): void => {
-    let filteredData = isCountries;
-
+    let filteredData: Country[] = isCountries;
     if (optionTitle) {
       filteredData = filteredData.filter(
         (country) => country.region === optionTitle
       );
       setFiltered(filteredData);
+      console.log(optionTitle);
     }
     if (searchedInput) {
       filteredData = filteredData.filter((country) =>
@@ -46,6 +50,10 @@ function App() {
     setFiltered(filteredData);
   };
 
+  const handleDarkMode = (): void => {
+    setDarkTheme(!darkTheme);
+  };
+
   const handleSearchInput = (e: any): void => {
     const value: string = e.target.value;
     setSearchedInput(value);
@@ -54,13 +62,23 @@ function App() {
     console.log(value);
   };
 
+  const getBorderCountryNames = (borderCodes: string[]) => {
+    return borderCodes.map((code: string) => {
+      const borderCountry = isCountries.find(
+        (country) => country.cca3 === code
+      );
+      return borderCountry?.name.common || code;
+    });
+  };
+
   useEffect(() => {
-    const fetchCountries = async (): Promise<void> => {
+    const fetchCountries = async () => {
       try {
         setIsLoading(true);
         const res = await fetch(URL);
         const data: Country[] = await res.json();
         console.log(data[0]);
+
         setIsCountries(data);
         setFiltered(data);
         setIsLoading(false);
@@ -76,7 +94,10 @@ function App() {
   return (
     <>
       <header className="mx-5">
-        <NavBar />
+        <NavBar
+          darkTheme={darkTheme}
+          handleDarkMode={handleDarkMode}
+        />
       </header>
       <main className="mx-5 mt-[6.5rem]">
         <BrowserRouter>
@@ -95,6 +116,8 @@ function App() {
                     optionTitle={optionTitle}
                     setOptionTitle={setOptionTitle}
                     applyingFilters={applyingFilters}
+                    darkTheme={darkTheme}
+                    handleDarkMode={handleDarkMode}
                   />
                 )
               }
@@ -106,6 +129,8 @@ function App() {
                 <CountryInfo
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
+                  darkTheme={darkTheme}
+                  getBorderCountryNames={getBorderCountryNames}
                 />
               }
             />

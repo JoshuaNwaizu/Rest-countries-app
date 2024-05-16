@@ -5,7 +5,12 @@ import { Link, useParams } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import Loading from '../Loading';
 
+// interface Languages {
+//   name: string;
+// }
+
 type CountryInfo = {
+  cca3: string;
   flags: { png: string; svg: string };
   name: {
     common: string;
@@ -17,18 +22,25 @@ type CountryInfo = {
   subregion: string;
   capital: string;
   tld: string[];
-  currencies: any;
+  currencies: { code: number; name: string; symbol: string }[];
   borders: string[];
-  languages: object;
+  languages: { [code: string]: string };
 };
 type Loading = boolean;
 
 interface IsLoading {
   isLoading: Loading;
   setIsLoading: (title: Loading) => void;
+  darkTheme: boolean;
+  getBorderCountryNames: (borderCodes: string) => string[];
 }
 
-const CountryInfo: React.FC<IsLoading> = ({ isLoading, setIsLoading }) => {
+const CountryInfo: React.FC<IsLoading> = ({
+  isLoading,
+  setIsLoading,
+  darkTheme,
+  getBorderCountryNames,
+}) => {
   const [countryInfo, setCountryInfo] = useState<CountryInfo[]>([]);
   const { name } = useParams();
 
@@ -63,7 +75,7 @@ const CountryInfo: React.FC<IsLoading> = ({ isLoading, setIsLoading }) => {
           <div className="w-[335px]">
             {countryInfo.map((country) => (
               <>
-                <div key={`${country.flags.png} ${country.population}`}>
+                <div key={`${country.cca3} ${country.population}`}>
                   <img
                     src={country.flags.png}
                     alt={country.name.common}
@@ -111,10 +123,12 @@ const CountryInfo: React.FC<IsLoading> = ({ isLoading, setIsLoading }) => {
                       {country.tld}
                     </li>
                     <li>
-                      <strong>Currencies: </strong> {country.currencies[0]}
+                      <strong>Currencies: </strong>
+                      {[Object.keys(country.currencies)[0]]}
                     </li>
                     <li>
-                      <strong>Languages:</strong>
+                      <strong>Languages:</strong>{' '}
+                      {Object.values(country.languages).join(', ')}
                     </li>
                   </ul>
 
@@ -124,13 +138,15 @@ const CountryInfo: React.FC<IsLoading> = ({ isLoading, setIsLoading }) => {
                         Border Countries
                       </h1>
                       <div className="flex flex-row flex-wrap items-center gap-2 ">
-                        {country.borders.map((item) => (
-                          <button
-                            className="bg-[#fff] py-2 px-9 rounded-md shadow-md"
-                            key={item}
-                          >
-                            {item}
-                          </button>
+                        {getBorderCountryNames(country.borders).map((name) => (
+                          <Link to={`/countries/${name}`}>
+                            <button
+                              className="bg-[#fff] py-2 px-9 rounded-md shadow-md"
+                              key={name}
+                            >
+                              {name}
+                            </button>
+                          </Link>
                         ))}
                       </div>
                     </div>
