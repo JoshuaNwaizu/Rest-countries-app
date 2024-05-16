@@ -5,6 +5,7 @@ import CountryInfo from './country_info/CountryInfo';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorPage from './country_info/ErrorPage';
 import Loading from './Loading';
+import BorderInfo from './BorderInfo';
 // import BorderInfo from './country_info/BorderInfo';
 
 type Country = {
@@ -62,7 +63,7 @@ function App() {
     console.log(value);
   };
 
-  const getBorderCountryNames = (borderCodes: string[]) => {
+  const getBorderCountryNames = (borderCodes: string[]):string[] =>  {
     return borderCodes.map((code: string) => {
       const borderCountry = isCountries.find(
         (country) => country.cca3 === code
@@ -133,6 +134,10 @@ function App() {
                   getBorderCountryNames={getBorderCountryNames}
                 />
               }
+            />
+            <Route
+              path="/border"
+              element={<BorderInfo />}
             />
 
             <Route

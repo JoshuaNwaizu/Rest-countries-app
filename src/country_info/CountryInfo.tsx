@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import Loading from '../Loading';
 
@@ -15,7 +15,7 @@ type CountryInfo = {
   name: {
     common: string;
     official: string;
-    nativeName: { ron: { official: string; common: string }; official: string };
+    nativeName: { [key: string]: { official: string; common: string } };
   };
   population: number;
   region: string;
@@ -32,7 +32,7 @@ interface IsLoading {
   isLoading: Loading;
   setIsLoading: (title: Loading) => void;
   darkTheme: boolean;
-  getBorderCountryNames: (borderCodes: string) => string[];
+  getBorderCountryNames: (borderCodes: string[]) => string[];
 }
 
 const CountryInfo: React.FC<IsLoading> = ({
@@ -43,6 +43,7 @@ const CountryInfo: React.FC<IsLoading> = ({
 }) => {
   const [countryInfo, setCountryInfo] = useState<CountryInfo[]>([]);
   const { name } = useParams();
+  // const { borderName } = useParams();
 
   useEffect(() => {
     const fetchCountries = async (): Promise<void> => {
@@ -59,7 +60,7 @@ const CountryInfo: React.FC<IsLoading> = ({
     };
 
     fetchCountries();
-  }, []);
+  }, [name, setIsLoading]);
 
   return (
     <section className="mx-4 ">
@@ -94,11 +95,12 @@ const CountryInfo: React.FC<IsLoading> = ({
                     <ul className="flex flex-col gap-2">
                       <li>
                         <strong>Native Name: </strong>
-                        {country.name.official}
+                        {Object.values(country.name.nativeName)[0].official ||
+                          'Native Name Unavailable'}
                       </li>
                       <li>
                         <strong>Population: </strong>
-                        {country.population.toLocaleString('en-US')}
+                        {country.population.toLocaleString()}
                       </li>
                       <li>
                         <strong>Region: </strong>
@@ -138,16 +140,19 @@ const CountryInfo: React.FC<IsLoading> = ({
                         Border Countries
                       </h1>
                       <div className="flex flex-row flex-wrap items-center gap-2 ">
-                        {getBorderCountryNames(country.borders).map((name) => (
-                          <Link to={`/countries/${name}`}>
-                            <button
-                              className="bg-[#fff] py-2 px-9 rounded-md shadow-md"
-                              key={name}
-                            >
-                              {name}
-                            </button>
-                          </Link>
-                        ))}
+                        {getBorderCountryNames(country.borders).map(
+                          (borderName) => (
+                            <NavLink to={`/countries/${borderName}`}>
+                              {' '}
+                              <button
+                                className="bg-[#fff] py-2 px-9 rounded-md shadow-md"
+                                key={borderName}
+                              >
+                                {borderName}
+                              </button>
+                            </NavLink>
+                          )
+                        )}
                       </div>
                     </div>
                   )}
