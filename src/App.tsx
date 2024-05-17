@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Home from './body/Home';
 import NavBar from './NavBar';
-import CountryInfo from './country_info/CountryInfo';
+import CountryInfo from './CountryInfo/CountryInfo';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ErrorPage from './country_info/ErrorPage';
+import ErrorPage from './CountryInfo/ErrorPage';
 import Loading from './Loading';
 
 type Country = {

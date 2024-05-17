@@ -1,6 +1,6 @@
 import SearchBar from './SearchBar';
 
-import CountryData from '../countries_data/CountryData';
+import CountryData from '../CountriesData/CountryData';
 type Country = {
   flags: { png: string; svg: string };
   name: { common: string; official: string };
