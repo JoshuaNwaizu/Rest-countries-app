@@ -17,17 +17,20 @@ const NavBar: React.FC<SearchProps> = ({ darkTheme, handleDarkMode }) => {
     };
     window.addEventListener('scroll', handleScroll);
 
-    // Cleanup function to remove event listener on component unmount
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isScrolled]);
 
   return (
     <nav
-      className={`fixed top-0 w-full left-0 bg-[#FFFFFF] ${
-        isScrolled ? 'shadow-lg' : ''
-      }`}
+      className={`fixed top-0 w-full left-0 ${
+        darkTheme ? 'bg-[#2B3844]' : 'bg-[#fff]'
+      } ${isScrolled ? 'shadow-lg' : ''}`}
     >
-      <div className="flex flex-row items-center justify-between mx-4 h-[5rem]">
+      <div
+        className={`flex flex-row items-center justify-between mx-4 h-[5rem] ${
+          darkTheme ? 'text-[#fff]' : ''
+        }`}
+      >
         <h2 className="text-[16px] font-extrabold leading-[20px] cursor-pointer ">
           Where in the world?
         </h2>

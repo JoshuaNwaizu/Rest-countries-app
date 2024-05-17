@@ -43,7 +43,8 @@ const CountryInfo: React.FC<IsLoading> = ({
 }) => {
   const [countryInfo, setCountryInfo] = useState<CountryInfo[]>([]);
   const { name } = useParams();
-  // const { borderName } = useParams();
+  const darkAndLightText = darkTheme ? 'text-[#fff]' : 'text-[#111517]';
+  const darkAndLightBackground = darkTheme ? 'bg-[#2B3844]' : 'bg-[#fff]';
 
   useEffect(() => {
     const fetchCountries = async (): Promise<void> => {
@@ -63,20 +64,22 @@ const CountryInfo: React.FC<IsLoading> = ({
   }, [name, setIsLoading]);
 
   return (
-    <section className="mx-4 ">
+    <section className="py-[2rem] mx-4 -mt-6">
       <Link to="/">
-        <button className="bg-[#fff] flex py-2 px-6 items-center gap-2 rounded-md shadow-md">
+        <button
+          className={` ${darkAndLightBackground}  ${darkAndLightText} flex py-2 px-6 items-center gap-2 rounded-md shadow-md `}
+        >
           <BsArrowLeft /> <span>Back</span>{' '}
         </button>
       </Link>
       {isLoading ? (
-        <Loading />
+        <Loading darkTheme={darkTheme} />
       ) : (
-        <div className="flex flex-col items-center justify-center mx-4 my-[4rem]">
+        <div className="flex flex-col items-center justify-center mx-4 mt-[4rem] ">
           <div className="w-[335px]">
             {countryInfo.map((country) => (
               <>
-                <div key={`${country.cca3} ${country.population}`}>
+                <div key={country.cca3}>
                   <img
                     src={country.flags.png}
                     alt={country.name.common}
@@ -84,15 +87,19 @@ const CountryInfo: React.FC<IsLoading> = ({
                   />
                 </div>
 
-                <article className="mt-[2rem] flex flex-col justify-center gap-[2rem]">
+                <article
+                  className={`mt-[2rem] flex flex-col justify-center gap-[2rem]`}
+                >
                   <div className="flex flex-col gap-[1rem]">
                     <div>
-                      <h1 className="font-extrabold text-xl text-[#111517]">
+                      <h1
+                        className={`font-extrabold text-xl ${darkAndLightText} `}
+                      >
                         {country.name.common}
                       </h1>
                     </div>
 
-                    <ul className="flex flex-col gap-2">
+                    <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
                       <li>
                         <strong>Native Name: </strong>
                         {Object.values(country.name.nativeName)[0].official ||
@@ -119,7 +126,7 @@ const CountryInfo: React.FC<IsLoading> = ({
                     </ul>
                   </div>
 
-                  <ul className="flex flex-col gap-2">
+                  <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
                     <li>
                       <strong>Top Level Domain: </strong>
                       {country.tld}
@@ -135,7 +142,7 @@ const CountryInfo: React.FC<IsLoading> = ({
                   </ul>
 
                   {country.borders && (
-                    <div className="flex flex-col gap-4">
+                    <div className={`flex flex-col gap-4 ${darkAndLightText}`}>
                       <h1 className="font-bold text-[16px]">
                         Border Countries
                       </h1>
@@ -145,7 +152,7 @@ const CountryInfo: React.FC<IsLoading> = ({
                             <NavLink to={`/countries/${borderName}`}>
                               {' '}
                               <button
-                                className="bg-[#fff] py-2 px-9 rounded-md shadow-md"
+                                className={` py-2 px-9 rounded-md shadow-md ${darkAndLightBackground}`}
                                 key={borderName}
                               >
                                 {borderName}

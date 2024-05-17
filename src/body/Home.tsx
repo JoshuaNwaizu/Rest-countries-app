@@ -21,6 +21,7 @@ interface HomeProps {
   applyingFilters: () => void;
   darkTheme: boolean;
   handleDarkMode: () => void;
+  noSearch: boolean;
 }
 
 const Home: React.FC<HomeProps> = ({
@@ -32,9 +33,10 @@ const Home: React.FC<HomeProps> = ({
   applyingFilters,
   darkTheme,
   handleDarkMode,
+  // noSearch,
 }) => {
   return (
-    <>
+    <section className="-mt-7">
       <SearchBar
         searchedInput={searchedInput}
         onHandleSearch={onHandleSearch}
@@ -45,8 +47,12 @@ const Home: React.FC<HomeProps> = ({
         handleDarkMode={handleDarkMode}
       />
 
-      <CountryData filtered={filtered} />
-    </>
+      <CountryData
+        filtered={filtered}
+        darkTheme={darkTheme}
+        // noSearch={noSearch}
+      />
+    </section>
   );
 };
 

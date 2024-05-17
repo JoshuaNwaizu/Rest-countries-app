@@ -20,15 +20,21 @@ const SearchBar: React.FC<SearchProps> = ({
   darkTheme,
 }) => {
   return (
-    <div className="flex flex-col gap-9">
-      <div className="bg-[#fff] py-4 flex flex-row items-center gap-6 px-8 shadow-md rounded-lg">
+    <div className="flex flex-col gap-9 ">
+      <div
+        className={`${
+          darkTheme ? 'bg-[#2B3844]' : 'bg-[#fff]'
+        } py-4 flex flex-row items-center gap-6 px-8 shadow-md rounded-lg mt-[2rem]`}
+      >
         <span className="text-[1.5rem] text-[#C4C4C4]">
           <IoSearch />
         </span>
         <input
           type="text"
-          placeholder="Search for a country"
-          className="py-1 border-none outline-none bg-[#fff] text-[#C4C4C4] font-normal px-3 w-full"
+          placeholder="Search for a country..."
+          className={`py-1 border-none outline-none  text-[#C4C4C4] font-normal px-3 w-full ${
+            darkTheme ? 'bg-[#2B3844]' : 'bg-[#fff]'
+          }`}
           value={searchedInput.toLowerCase()}
           onChange={onHandleSearch}
         />
@@ -37,6 +43,7 @@ const SearchBar: React.FC<SearchProps> = ({
         optionTitle={optionTitle}
         setOptionTitle={setOptionTitle}
         applyingFilters={applyingFilters}
+        darkTheme={darkTheme}
       />
     </div>
   );

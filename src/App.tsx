@@ -5,8 +5,6 @@ import CountryInfo from './country_info/CountryInfo';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorPage from './country_info/ErrorPage';
 import Loading from './Loading';
-import BorderInfo from './BorderInfo';
-// import BorderInfo from './country_info/BorderInfo';
 
 type Country = {
   flags: { png: string; svg: string };
@@ -31,6 +29,8 @@ function App() {
   const [optionTitle, setOptionTitle] = useState<Option>('');
   const [isLoading, setIsLoading] = useState<Loading>(false);
   const [darkTheme, setDarkTheme] = useState<Loading>(false);
+  const [errMsg, setErrMsg] = useState<Inputs>('');
+  // const [noSearch, setNoSearch] = useState<Loading>(false);
 
   const applyingFilters = (): void => {
     let filteredData: Country[] = isCountries;
@@ -48,6 +48,9 @@ function App() {
       console.log(filteredData);
       setFiltered(filteredData);
     }
+
+    // if (!filtered) setNoSearch(true);
+
     setFiltered(filteredData);
   };
 
@@ -63,7 +66,7 @@ function App() {
     console.log(value);
   };
 
-  const getBorderCountryNames = (borderCodes: string[]):string[] =>  {
+  const getBorderCountryNames = (borderCodes: string[]): string[] => {
     return borderCodes.map((code: string) => {
       const borderCountry = isCountries.find(
         (country) => country.cca3 === code
@@ -77,14 +80,17 @@ function App() {
       try {
         setIsLoading(true);
         const res = await fetch(URL);
+        if (!res.ok) throw new Error('Could not get this particular country');
+
         const data: Country[] = await res.json();
         console.log(data[0]);
 
         setIsCountries(data);
         setFiltered(data);
         setIsLoading(false);
-      } catch (err) {
-        console.log(err);
+      } catch (err: any) {
+        console.log(err.message);
+        setErrMsg(err.message);
       }
     };
 
@@ -93,8 +99,12 @@ function App() {
   }, []);
 
   return (
-    <>
-      <header className="mx-5">
+    <div
+      className={` ${
+        darkTheme ? 'bg-[#202C36]' : 'bg-[#FAFAFA]'
+      } transition-colors duration-300`}
+    >
+      <header className="mx-5 bg-[#FAFAFA]">
         <NavBar
           darkTheme={darkTheme}
           handleDarkMode={handleDarkMode}
@@ -107,8 +117,8 @@ function App() {
               path="/"
               element={
                 isLoading ? (
-                  <Loading />
-                ) : (
+                  <Loading darkTheme={darkTheme} />
+                ) : !isLoading && !errMsg ? (
                   <Home
                     isCountries={isCountries}
                     filtered={filtered}
@@ -119,7 +129,10 @@ function App() {
                     applyingFilters={applyingFilters}
                     darkTheme={darkTheme}
                     handleDarkMode={handleDarkMode}
+                    // noSearch={noSearch}
                   />
+                ) : (
+                  errMsg && <ErrorPage />
                 )
               }
             />
@@ -135,10 +148,6 @@ function App() {
                 />
               }
             />
-            <Route
-              path="/border"
-              element={<BorderInfo />}
-            />
 
             <Route
               path="*"
@@ -147,7 +156,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </main>
-    </>
+    </div>
   );
 }
 
