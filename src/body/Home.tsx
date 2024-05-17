@@ -1,5 +1,3 @@
-// import React from 'react'
-
 import SearchBar from './SearchBar';
 
 import CountryData from '../countries_data/CountryData';
@@ -21,7 +19,6 @@ interface HomeProps {
   applyingFilters: () => void;
   darkTheme: boolean;
   handleDarkMode: () => void;
-  // noSearch: boolean;
 }
 
 const Home: React.FC<HomeProps> = ({

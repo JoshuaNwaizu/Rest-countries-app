@@ -1,6 +1,5 @@
 import { IoSearch } from 'react-icons/io5';
 import SelectCountry from './SelectCountry';
-import React from 'react';
 
 interface SearchProps {
   searchedInput: string;

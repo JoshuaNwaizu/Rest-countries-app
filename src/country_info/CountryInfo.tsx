@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import Loading from '../Loading';
