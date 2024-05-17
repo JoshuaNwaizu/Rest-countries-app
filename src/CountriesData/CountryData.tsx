@@ -18,7 +18,7 @@ const CountryData: React.FC<filteredProps> = ({ filtered, darkTheme }) => {
 
   return (
     <>
-      <section className="flex flex-col gap-12 my-[2.5rem]">
+      <section className="flex flex-col gap-12 my-[2.5rem] min-[768px]:flex-row min-[768px]:flex-wrap min-[768px]:justify-center">
         {filtered.map((item) => (
           <div
             key={item.flags.png}
@@ -26,7 +26,7 @@ const CountryData: React.FC<filteredProps> = ({ filtered, darkTheme }) => {
           >
             <Link to={`/countries/${item.name.official}`}>
               <div
-                className={`flex flex-col gap-7 justify-center ${darkAndLightBackground} shadow-md w-[312px] rounded-md`}
+                className={`flex flex-col gap-7 justify-center  ${darkAndLightBackground} shadow-md w-[312px] rounded-md`}
               >
                 <div className="">
                   <img
