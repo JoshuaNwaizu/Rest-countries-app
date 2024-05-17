@@ -30,7 +30,6 @@ function App() {
   const [isLoading, setIsLoading] = useState<Loading>(false);
   const [darkTheme, setDarkTheme] = useState<Loading>(false);
   const [errMsg, setErrMsg] = useState<Inputs>('');
-  // const [noSearch, setNoSearch] = useState<Loading>(false);
 
   const applyingFilters = (): void => {
     let filteredData: Country[] = isCountries;
@@ -48,8 +47,6 @@ function App() {
       console.log(filteredData);
       setFiltered(filteredData);
     }
-
-    // if (!filtered) setNoSearch(true);
 
     setFiltered(filteredData);
   };
@@ -129,7 +126,6 @@ function App() {
                     applyingFilters={applyingFilters}
                     darkTheme={darkTheme}
                     handleDarkMode={handleDarkMode}
-                    // noSearch={noSearch}
                   />
                 ) : (
                   errMsg && <ErrorPage />
