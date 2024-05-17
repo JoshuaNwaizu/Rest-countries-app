@@ -64,7 +64,7 @@ const CountryInfo: React.FC<IsLoading> = ({
   }, [name, setIsLoading]);
 
   return (
-    <section className="py-[2rem] mx-4 -mt-6">
+    <section className="py-[2rem] mx-4 -mt-6 pb-[5rem]">
       <Link to="/">
         <button
           className={` ${darkAndLightBackground}  ${darkAndLightText} flex py-2 px-6 items-center gap-2 rounded-md shadow-md `}
@@ -75,78 +75,85 @@ const CountryInfo: React.FC<IsLoading> = ({
       {isLoading ? (
         <Loading darkTheme={darkTheme} />
       ) : (
-        <div className="flex flex-col items-center justify-center mx-4 mt-[4rem] ">
-          <div className="w-[335px]">
+        <div className="flex flex-col items-center justify-center mx-4 mt-[4rem]  ">
+          <div className="w-[335px]  min-[768px]:w-[100%]">
             {countryInfo.map((country) => (
               <>
-                <div key={country.cca3}>
+                <div
+                  key={country.flags.png}
+                  className="min-[768px]:flex min-[768px]:item-center min-[768px]:justify-center"
+                >
                   <img
                     src={country.flags.png}
                     alt={country.name.common}
-                    className="w-[355px] rounded-md h-[255px]"
+                    className="w-[355px] rounded-md h-[255px] min-[768px]:w-[555px] min-[768px]:h-[355px]"
                   />
                 </div>
 
                 <article
-                  className={`mt-[2rem] flex flex-col justify-center gap-[2rem]`}
+                  className={`mt-[2rem] flex flex-col justify-center gap-[2rem]  `}
                 >
-                  <div className="flex flex-col gap-[1rem]">
+                  <div className="flex flex-col gap-[1rem] min-[768px]:gap-[2rem]">
                     <div>
                       <h1
-                        className={`font-extrabold text-xl ${darkAndLightText} `}
+                        className={`font-extrabold text-xl ${darkAndLightText} min-[768px]:text-center min-[768px]:text-2xl`}
                       >
                         {country.name.common}
                       </h1>
                     </div>
 
-                    <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
-                      <li>
-                        <strong>Native Name: </strong>
-                        {Object.values(country.name.nativeName)[0].official ||
-                          'Native Name Unavailable'}
-                      </li>
-                      <li>
-                        <strong>Population: </strong>
-                        {country.population.toLocaleString()}
-                      </li>
-                      <li>
-                        <strong>Region: </strong>
-                        {country.region}
-                      </li>
-                      {country.subregion && (
+                    <div className="flex flex-col gap-7 min-[768px]:flex-row min-[768px]:gap-[5rem]  min-[768px]:justify-center">
+                      <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
                         <li>
-                          <strong>Sub Region:</strong> {country.subregion}
+                          <strong>Native Name: </strong>
+                          {Object.values(country.name.nativeName)[0].official ||
+                            'Native Name Unavailable'}
                         </li>
-                      )}
+                        <li>
+                          <strong>Population: </strong>
+                          {country.population.toLocaleString()}
+                        </li>
+                        <li>
+                          <strong>Region: </strong>
+                          {country.region}
+                        </li>
+                        {country.subregion && (
+                          <li>
+                            <strong>Sub Region:</strong> {country.subregion}
+                          </li>
+                        )}
 
-                      <li>
-                        <strong>Capital: </strong>
-                        {country.capital}
-                      </li>
-                    </ul>
+                        <li>
+                          <strong>Capital: </strong>
+                          {country.capital}
+                        </li>
+                      </ul>
+
+                      <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
+                        <li>
+                          <strong>Top Level Domain: </strong>
+                          {country.tld}
+                        </li>
+                        <li>
+                          <strong>Currencies: </strong>
+                          {[Object.keys(country.currencies)[0]]}
+                        </li>
+                        <li>
+                          <strong>Languages:</strong>{' '}
+                          {Object.values(country.languages).join(', ')}
+                        </li>
+                      </ul>
+                    </div>
                   </div>
 
-                  <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
-                    <li>
-                      <strong>Top Level Domain: </strong>
-                      {country.tld}
-                    </li>
-                    <li>
-                      <strong>Currencies: </strong>
-                      {[Object.keys(country.currencies)[0]]}
-                    </li>
-                    <li>
-                      <strong>Languages:</strong>{' '}
-                      {Object.values(country.languages).join(', ')}
-                    </li>
-                  </ul>
-
                   {country.borders && (
-                    <div className={`flex flex-col gap-4 ${darkAndLightText}`}>
-                      <h1 className="font-bold text-[16px]">
+                    <div
+                      className={`flex flex-col gap-4 min-[768px]: ${darkAndLightText}`}
+                    >
+                      <h1 className="font-bold text-[16px] min-[768px]:text-center min-[768px]:text-2xl">
                         Border Countries
                       </h1>
-                      <div className="flex flex-row flex-wrap items-center gap-2 ">
+                      <div className="flex flex-row flex-wrap items-center gap-2 min-[768px]:justify-center ">
                         {getBorderCountryNames(country.borders).map(
                           (borderName) => (
                             <NavLink to={`/countries/${borderName}`}>

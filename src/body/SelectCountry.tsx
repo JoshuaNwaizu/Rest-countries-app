@@ -35,11 +35,11 @@ const SelectCountry: React.FC<CountryProps> = ({
 
   return (
     <>
-      <div className="flex flex-col ">
+      <div className="flex flex-col min-[768px]:items-center min-[768px]:justify-center min-[768px]:mt-[2rem]  min-[768px]:mr-6">
         <div
-          className={`flex items-center justify-between w-[60%] px-6 py-4 ${darkAndLightBackground}  shadow-md rounded-lg`}
+          className={`flex items-center justify-between w-[60%] px-6 py-4 ${darkAndLightBackground}  shadow-md rounded-lg min-[768px]:w-[100%]`}
         >
-          <p className={` ${darkTheme ? 'text-[#fff]' : 'text-[#4e5b62]'}`}>
+          <p className={` ${darkTheme ? 'text-[#fff]' : 'text-[#4e5b62]'} `}>
             {optionTitle ? optionTitle : 'Filter by Region'}
           </p>
           <span
@@ -54,7 +54,7 @@ const SelectCountry: React.FC<CountryProps> = ({
 
         <div className={` ${openSelectBox ? 'block' : 'hidden'}`}>
           <div
-            className={`flex flex-col w-[55.5%] gap-2 px-6 py-4 ${darkAndLightBackground} ] shadow-md rounded-lg absolute mt-2`}
+            className={`flex flex-col w-[55.5%] gap-2 px-6 py-4 ${darkAndLightBackground} ] shadow-md rounded-lg absolute mt-2 min-[768px]:right-4  min-[768px]:w-[24.5%]`}
           >
             {continent.map((item: string) => (
               <p

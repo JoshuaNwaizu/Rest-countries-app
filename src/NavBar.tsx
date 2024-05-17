@@ -27,22 +27,22 @@ const NavBar: React.FC<SearchProps> = ({ darkTheme, handleDarkMode }) => {
       } ${isScrolled ? 'shadow-lg' : ''}`}
     >
       <div
-        className={`flex flex-row items-center justify-between mx-4 h-[5rem] ${
+        className={`flex flex-row items-center justify-between mx-4 h-[5rem]  min-[768px]:mx-[3rem] ${
           darkTheme ? 'text-[#fff]' : ''
         }`}
       >
-        <h2 className="text-[16px] font-extrabold leading-[20px] cursor-pointer ">
+        <h2 className="text-[16px] font-extrabold leading-[20px] cursor-pointer min-[768px]:text-[20px]">
           Where in the world?
         </h2>
         <div
-          className="flex flex-row items-center justify-center gap-2"
+          className="flex flex-row items-center justify-center gap-2 "
           onClick={handleDarkMode}
         >
-          <span className="text-[16px]">
+          <span className="text-[16px] min-[768px]:text-[20px]">
             {darkTheme ? <MdOutlineLightMode /> : <HiOutlineMoon />}
           </span>
 
-          <span className="text-[14px]">
+          <span className="text-[14px] min-[768px]:text-[20px]">
             {darkTheme ? 'Light Mode' : 'Dark Mode'}
           </span>
         </div>

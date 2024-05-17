@@ -53,6 +53,12 @@ function App() {
 
   const handleDarkMode = (): void => {
     setDarkTheme(!darkTheme);
+
+    if (darkTheme) {
+      document.body.style.backgroundColor = '#FAFAFA';
+    } else {
+      document.body.style.backgroundColor = '#202C36';
+    }
   };
 
   const handleSearchInput = (e: any): void => {
@@ -90,6 +96,11 @@ function App() {
         setErrMsg(err.message);
       }
     };
+    // {
+    //   darkTheme
+    //     ? (document.body.style.backgroundColor = 'red')
+    //     : (document.body.style.backgroundColor = 'blue');
+    // }
 
     applyingFilters();
     fetchCountries();

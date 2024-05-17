@@ -26,7 +26,7 @@ const CountryData: React.FC<filteredProps> = ({ filtered, darkTheme }) => {
           >
             <Link to={`/countries/${item.name.official}`}>
               <div
-                className={`flex flex-col gap-7 justify-center  ${darkAndLightBackground} shadow-md w-[312px] rounded-md`}
+                className={`flex flex-col gap-7 justify-center  ${darkAndLightBackground} shadow-md w-[312px] h-[410px] rounded-md`}
               >
                 <div className="">
                   <img
