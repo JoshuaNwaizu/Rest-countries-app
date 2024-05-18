@@ -25,6 +25,7 @@ type CountryInfo = {
   currencies: { code: number; name: string; symbol: string }[];
   borders: string[];
   languages: { [code: string]: string };
+  area: string;
 };
 type Loading = boolean;
 
@@ -64,7 +65,7 @@ const CountryInfo: React.FC<IsLoading> = ({
   }, [name, setIsLoading]);
 
   return (
-    <section className="py-[2rem] mx-4 -mt-6 pb-[5rem]">
+    <section className="py-[2rem] mx-4 -mt-6 pb-[5rem] ">
       <Link to="/">
         <button
           className={` ${darkAndLightBackground}  ${darkAndLightText} flex py-2 px-6 items-center gap-2 rounded-md shadow-md `}
@@ -75,34 +76,34 @@ const CountryInfo: React.FC<IsLoading> = ({
       {isLoading ? (
         <Loading darkTheme={darkTheme} />
       ) : (
-        <div className="flex flex-col items-center justify-center mx-4 mt-[4rem]  ">
-          <div className="w-[335px]  min-[768px]:w-[100%]">
+        <div className="flex flex-col items-center justify-center mx-4 mt-[4rem]  min-[1104px]:mx-[9rem]">
+          <div className="w-[335px]  min-[768px]:w-[100%]  min-[1104px]:flex  min-[1104px]:flex-row  min-[1104px]:justify-between  min-[1204px]:space-around ">
             {countryInfo.map((country) => (
               <>
                 <div
-                  key={country.flags.png}
-                  className="min-[768px]:flex min-[768px]:item-center min-[768px]:justify-center"
+                  key={country.area}
+                  className="min-[768px]:flex min-[768px]:item-center min-[768px]:justify-center "
                 >
                   <img
                     src={country.flags.png}
                     alt={country.name.common}
-                    className="w-[355px] rounded-md h-[255px] min-[768px]:w-[555px] min-[768px]:h-[355px]"
+                    className="w-[355px] rounded-md h-[255px] min-[768px]:w-[555px] min-[768px]:h-[355px]  min-[1104px]:w-[445px]  min-[1104px]:h-[355px]"
                   />
                 </div>
 
                 <article
                   className={`mt-[2rem] flex flex-col justify-center gap-[2rem]  `}
                 >
-                  <div className="flex flex-col gap-[1rem] min-[768px]:gap-[2rem]">
+                  <div className="flex flex-col gap-[1rem] min-[768px]:gap-[2rem] ">
                     <div>
                       <h1
-                        className={`font-extrabold text-xl ${darkAndLightText} min-[768px]:text-center min-[768px]:text-2xl`}
+                        className={`font-extrabold text-xl ${darkAndLightText} min-[768px]:text-center min-[768px]:text-2xl  min-[1280px]:text-left min-[1104px]:ml-[2rem]`}
                       >
                         {country.name.common}
                       </h1>
                     </div>
 
-                    <div className="flex flex-col gap-7 min-[768px]:flex-row min-[768px]:gap-[5rem]  min-[768px]:justify-center">
+                    <div className="flex flex-col gap-7 min-[768px]:flex-row min-[768px]:gap-[5rem]  min-[768px]:justify-center  min-[1104px]:gap-[2.5rem] min-[1104px]:ml-8">
                       <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
                         <li>
                           <strong>Native Name: </strong>
@@ -140,7 +141,9 @@ const CountryInfo: React.FC<IsLoading> = ({
                         </li>
                         <li>
                           <strong>Languages:</strong>{' '}
-                          {Object.values(country.languages).join(', ')}
+                          {Object.values(country.languages)
+                            .slice(0, 3)
+                            .join(', ')}
                         </li>
                       </ul>
                     </div>
@@ -148,14 +151,15 @@ const CountryInfo: React.FC<IsLoading> = ({
 
                   {country.borders && (
                     <div
-                      className={`flex flex-col gap-4 min-[768px]: ${darkAndLightText}`}
+                      className={`flex flex-col gap-4 min-[768px]: ${darkAndLightText} `}
                     >
                       <h1 className="font-bold text-[16px] min-[768px]:text-center min-[768px]:text-2xl">
                         Border Countries
                       </h1>
-                      <div className="flex flex-row flex-wrap items-center gap-2 min-[768px]:justify-center ">
-                        {getBorderCountryNames(country.borders).map(
-                          (borderName) => (
+                      <div className="flex flex-row flex-wrap items-center gap-2 min-[768px]:justify-center  min-[1104px]:flex-row">
+                        {getBorderCountryNames(country.borders)
+                          .slice(0, 4)
+                          .map((borderName) => (
                             <NavLink to={`/countries/${borderName}`}>
                               {' '}
                               <button
@@ -165,8 +169,7 @@ const CountryInfo: React.FC<IsLoading> = ({
                                 {borderName}
                               </button>
                             </NavLink>
-                          )
-                        )}
+                          ))}
                       </div>
                     </div>
                   )}

@@ -42,7 +42,7 @@ const NavBar: React.FC<SearchProps> = ({ darkTheme, handleDarkMode }) => {
             {darkTheme ? <MdOutlineLightMode /> : <HiOutlineMoon />}
           </span>
 
-          <span className="text-[14px] min-[768px]:text-[20px]">
+          <span className="text-[14px] min-[768px]:text-[20px] cursor-pointer">
             {darkTheme ? 'Light Mode' : 'Dark Mode'}
           </span>
         </div>
