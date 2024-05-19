@@ -19,7 +19,7 @@ const SearchBar: React.FC<SearchProps> = ({
   darkTheme,
 }) => {
   return (
-    <div className="flex flex-col gap-9 min-[768px]:flex-row min-[768px]:justify-between">
+    <div className="flex flex-col gap-9 min-[768px]:flex-row min-[768px]:justify-between min-[1104px]:mx-[7rem]">
       <div
         className={`${
           darkTheme ? 'bg-[#2B3844]' : 'bg-[#fff]'

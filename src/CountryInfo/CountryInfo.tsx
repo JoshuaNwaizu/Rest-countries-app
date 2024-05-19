@@ -102,11 +102,15 @@ const CountryInfo: React.FC<IsLoading> = ({
 
                     <div className="flex flex-col gap-7 min-[768px]:flex-row min-[768px]:gap-[5rem]  min-[768px]:justify-center  min-[1104px]:gap-[2.5rem] min-[1104px]:ml-8">
                       <ul className={`flex flex-col gap-2 ${darkAndLightText}`}>
-                        <li>
-                          <strong>Native Name: </strong>
-                          {Object.values(country.name.nativeName)[0].official ||
-                            'Native Name Unavailable'}
-                        </li>
+                        {Object.values(country?.name?.nativeName)[0]
+                          .official && (
+                          <li>
+                            <strong>Native Name: </strong>
+                            {Object.values(country?.name?.nativeName)[0]
+                              .official || country?.name?.official}
+                          </li>
+                        )}
+
                         <li>
                           <strong>Population: </strong>
                           {country.population.toLocaleString()}

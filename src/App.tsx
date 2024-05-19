@@ -28,7 +28,11 @@ function App() {
   const [searchedInput, setSearchedInput] = useState<Inputs>('');
   const [optionTitle, setOptionTitle] = useState<Option>('');
   const [isLoading, setIsLoading] = useState<Loading>(false);
-  const [darkTheme, setDarkTheme] = useState<Loading>(false);
+  const [darkTheme, setDarkTheme] = useState<Loading>(() => {
+    const savedTheme = localStorage.getItem('darkMode');
+    return savedTheme ? JSON.parse(savedTheme) : false;
+  });
+
   const [errMsg, setErrMsg] = useState<Inputs>('');
 
   const applyingFilters = (): void => {
@@ -101,6 +105,10 @@ function App() {
     applyingFilters();
     fetchCountries();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkTheme));
+  }, [darkTheme]);
 
   return (
     <div
