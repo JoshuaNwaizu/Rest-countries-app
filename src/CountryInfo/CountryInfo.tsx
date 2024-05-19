@@ -1,17 +1,13 @@
 // import React from 'react'
 
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import Loading from '../Loading';
 
-// interface Languages {
-//   name: string;
-// }
-
 type CountryInfo = {
   cca3: string;
-  flags: { png: string; svg: string };
+  flags: { alt: string; png: string; svg: string };
   name: {
     common: string;
     official: string;
@@ -27,6 +23,7 @@ type CountryInfo = {
   languages: { [code: string]: string };
   area: string;
 };
+
 type Loading = boolean;
 
 interface IsLoading {
@@ -51,7 +48,7 @@ const CountryInfo: React.FC<IsLoading> = ({
     const fetchCountries = async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const res = await fetch(`https://restcountries.com/v3.1/name/${name}`);
+        const res = await fetch(`https://restcountries.com/v3.1/alpha/${name}`);
         const data: CountryInfo[] = await res.json();
         setCountryInfo(data);
         console.log(data);
@@ -66,7 +63,7 @@ const CountryInfo: React.FC<IsLoading> = ({
 
   return (
     <section className="py-[2rem] mx-4 -mt-6 pb-[5rem] ">
-      <Link to="/">
+      <Link to="/home">
         <button
           className={` ${darkAndLightBackground}  ${darkAndLightText} flex py-2 px-6 items-center gap-2 rounded-md shadow-md `}
         >
@@ -86,7 +83,7 @@ const CountryInfo: React.FC<IsLoading> = ({
                 >
                   <img
                     src={country.flags.png}
-                    alt={country.name.common}
+                    alt={country.flags.alt}
                     className="w-[355px] rounded-md h-[255px] min-[768px]:w-[555px] min-[768px]:h-[355px]  min-[1104px]:w-[445px]  min-[1104px]:h-[355px]"
                   />
                 </div>
@@ -157,19 +154,23 @@ const CountryInfo: React.FC<IsLoading> = ({
                         Border Countries
                       </h1>
                       <div className="flex flex-row flex-wrap items-center gap-2 min-[768px]:justify-center  min-[1104px]:flex-row">
-                        {getBorderCountryNames(country.borders)
-                          .slice(0, 4)
-                          .map((borderName) => (
-                            <NavLink to={`/countries/${borderName}`}>
-                              {' '}
+                        {country.borders.slice(0, 5).map((borderName) => {
+                          const borderCountryName = getBorderCountryNames([
+                            borderName,
+                          ])[0];
+                          return (
+                            <Link
+                              to={`/countries/${borderName}`}
+                              key={borderName}
+                            >
                               <button
-                                className={` py-2 px-9 rounded-md shadow-md ${darkAndLightBackground}`}
-                                key={borderName}
+                                className={`py-2 px-9 rounded-md shadow-md ${darkAndLightBackground}`}
                               >
-                                {borderName}
+                                {borderCountryName}
                               </button>
-                            </NavLink>
-                          ))}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   )}

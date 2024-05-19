@@ -7,6 +7,7 @@ type Country = {
   population: string;
   region: string;
   capital: string;
+  cca3: string;
 };
 
 interface HomeProps {

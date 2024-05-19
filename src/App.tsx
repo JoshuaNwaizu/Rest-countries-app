@@ -96,11 +96,6 @@ function App() {
         setErrMsg(err.message);
       }
     };
-    // {
-    //   darkTheme
-    //     ? (document.body.style.backgroundColor = 'red')
-    //     : (document.body.style.backgroundColor = 'blue');
-    // }
 
     applyingFilters();
     fetchCountries();
@@ -122,7 +117,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route
-              path="/"
+              path="/home"
               element={
                 isLoading ? (
                   <Loading darkTheme={darkTheme} />
