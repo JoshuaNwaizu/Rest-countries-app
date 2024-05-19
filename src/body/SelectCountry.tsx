@@ -38,6 +38,7 @@ const SelectCountry: React.FC<CountryProps> = ({
       <div className="flex flex-col min-[768px]:items-center min-[768px]:justify-center min-[768px]:mt-[2rem]  min-[768px]:mr-6">
         <div
           className={`flex items-center justify-between w-[60%] px-6 py-4 ${darkAndLightBackground}  shadow-md rounded-lg min-[768px]:w-[100%]`}
+          onClick={handleOpenSelect}
         >
           <p className={` ${darkTheme ? 'text-[#fff]' : 'text-[#4e5b62]'} `}>
             {optionTitle ? optionTitle : 'Filter by Region'}
@@ -46,7 +47,6 @@ const SelectCountry: React.FC<CountryProps> = ({
             className={`text-[1.5rem] cursor-pointer transition-all duration-150 ${
               openSelectBox ? 'rotate-180' : ''
             } ${darkAndLightText}`}
-            onClick={() => handleOpenSelect()}
           >
             <RiArrowDropDownLine />
           </span>

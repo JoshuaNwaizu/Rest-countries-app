@@ -40,6 +40,7 @@ function App() {
       setFiltered(filteredData);
       console.log(optionTitle);
     }
+
     if (searchedInput) {
       filteredData = filteredData.filter((country) =>
         country.name.common.toString().toLowerCase().includes(searchedInput)
