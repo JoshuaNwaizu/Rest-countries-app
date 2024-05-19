@@ -118,7 +118,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route
-              path="/home"
+              path="/"
               element={
                 isLoading ? (
                   <Loading darkTheme={darkTheme} />

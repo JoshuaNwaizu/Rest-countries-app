@@ -63,7 +63,7 @@ const CountryInfo: React.FC<IsLoading> = ({
 
   return (
     <section className="py-[2rem] mx-4 -mt-6 pb-[5rem] ">
-      <Link to="/home">
+      <Link to="/">
         <button
           className={` ${darkAndLightBackground}  ${darkAndLightText} flex py-2 px-6 items-center gap-2 rounded-md shadow-md `}
         >
