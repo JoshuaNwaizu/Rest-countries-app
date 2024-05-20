@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorPage from './CountryInfo/ErrorPage';
 import Loading from './Loading';
 
-
 type Country = {
   flags: { png: string; svg: string };
   name: { common: string; official: string };
@@ -43,14 +42,12 @@ function App() {
         (country) => country.region === optionTitle
       );
       setFiltered(filteredData);
-      console.log(optionTitle);
     }
 
     if (searchedInput) {
       filteredData = filteredData.filter((country) =>
         country.name.common.toString().toLowerCase().includes(searchedInput)
       );
-      console.log(filteredData);
       setFiltered(filteredData);
     }
 
@@ -71,8 +68,6 @@ function App() {
     const value: string = e.target.value;
     setSearchedInput(value);
     applyingFilters();
-
-    console.log(value);
   };
 
   const getBorderCountryNames = (borderCodes: string[]): string[] => {
@@ -86,25 +81,28 @@ function App() {
 
   useEffect(() => {
     const fetchCountries = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         const res = await fetch(URL);
         if (!res.ok) throw new Error('Could not get this particular country');
 
         const data: Country[] = await res.json();
-        console.log(data[0]);
 
         setIsCountries(data);
         setFiltered(data);
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (err: any) {
         console.log(err.message);
         setErrMsg(err.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchCountries();
+    setIsLoading(false);
   }, []);
+
   useEffect(() => {
     applyingFilters();
   }, [optionTitle, searchedInput]);

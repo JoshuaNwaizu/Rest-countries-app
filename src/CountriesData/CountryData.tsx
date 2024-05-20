@@ -13,7 +13,6 @@ type Country = {
 interface filteredProps {
   filtered: Country[];
   darkTheme: boolean;
-  // cca3: Country[];
 }
 const CountryData: React.FC<filteredProps> = ({ filtered, darkTheme }) => {
   const darkAndLightText = darkTheme ? 'text-[#fff]' : 'text-[#4e5b62]';
