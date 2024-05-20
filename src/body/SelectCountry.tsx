@@ -39,11 +39,15 @@ const SelectCountry: React.FC<CountryProps> = ({
           className={`flex items-center justify-between w-[60%] px-6 py-4 ${darkAndLightBackground}  shadow-md rounded-lg min-[768px]:w-[100%]`}
           onClick={handleOpenSelect}
         >
-          <p className={` ${darkTheme ? 'text-[#fff]' : 'text-[#4e5b62]'} `}>
+          <p
+            className={` ${
+              darkTheme ? 'text-[#fff]' : 'text-[#4e5b62]'
+            } max-[320px]:text-[.8rem]`}
+          >
             {optionTitle ? optionTitle : 'Filter by Region'}
           </p>
           <span
-            className={`text-[1.5rem] cursor-pointer transition-all duration-150 ${
+            className={`text-[1.5rem] max-[320px]:text-[1.2rem] cursor-pointer transition-all duration-150 ${
               openSelectBox ? 'rotate-180' : ''
             } ${darkAndLightText}`}
           >
@@ -53,13 +57,13 @@ const SelectCountry: React.FC<CountryProps> = ({
 
         <div className={` ${openSelectBox ? 'block' : 'hidden'}`}>
           <div
-            className={`flex flex-col w-[55.5%] gap-2 px-6 py-4 ${darkAndLightBackground} ] shadow-md rounded-lg absolute mt-2 min-[768px]:right-4  min-[768px]:w-[24.5%]`}
+            className={`flex flex-col w-[54%] gap-2 px-6 py-4 ${darkAndLightBackground} ] shadow-md rounded-lg absolute mt-2 min-[768px]:right-4  min-[768px]:w-[24.5%]`}
           >
             {continent.map((region: string) => (
               <p
                 key={region}
                 onClick={() => handleSelectOption(region)}
-                className={darkAndLightText}
+                className={`${darkAndLightText} max-[320px]:text-[.8rem]`}
               >
                 {region}
               </p>

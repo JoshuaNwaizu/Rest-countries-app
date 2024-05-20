@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorPage from './CountryInfo/ErrorPage';
 import Loading from './Loading';
 
+
 type Country = {
   flags: { png: string; svg: string };
   name: { common: string; official: string };
@@ -113,7 +114,7 @@ function App() {
   }, [darkTheme, optionTitle]);
 
   return (
-    <div
+    <main
       className={` ${
         darkTheme ? 'bg-[#202C36]' : 'bg-[#FAFAFA]'
       } transition-colors duration-300`}
@@ -124,7 +125,7 @@ function App() {
           handleDarkMode={handleDarkMode}
         />
       </header>
-      <main className="mx-5 mt-[6.5rem]">
+      <section className="mx-5 mt-[6.5rem]">
         <BrowserRouter>
           <Routes>
             <Route
@@ -133,17 +134,19 @@ function App() {
                 isLoading ? (
                   <Loading darkTheme={darkTheme} />
                 ) : !isLoading && !errMsg ? (
-                  <Home
-                    isCountries={isCountries}
-                    filtered={filtered}
-                    searchedInput={searchedInput}
-                    onHandleSearch={handleSearchInput}
-                    optionTitle={optionTitle}
-                    setOptionTitle={setOptionTitle}
-                    applyingFilters={applyingFilters}
-                    darkTheme={darkTheme}
-                    handleDarkMode={handleDarkMode}
-                  />
+                  <>
+                    <Home
+                      isCountries={isCountries}
+                      filtered={filtered}
+                      searchedInput={searchedInput}
+                      onHandleSearch={handleSearchInput}
+                      optionTitle={optionTitle}
+                      setOptionTitle={setOptionTitle}
+                      applyingFilters={applyingFilters}
+                      darkTheme={darkTheme}
+                      handleDarkMode={handleDarkMode}
+                    />
+                  </>
                 ) : (
                   errMsg && <ErrorPage />
                 )
@@ -168,8 +171,8 @@ function App() {
             />
           </Routes>
         </BrowserRouter>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
 

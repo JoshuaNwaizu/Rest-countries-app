@@ -1,6 +1,7 @@
 import SearchBar from './SearchBar';
 
 import CountryData from '../CountriesData/CountryData';
+import ArrowToTop from './ArrowToTop';
 type Country = {
   flags: { png: string; svg: string };
   name: { common: string; official: string };
@@ -33,7 +34,7 @@ const Home: React.FC<HomeProps> = ({
   handleDarkMode,
 }) => {
   return (
-    <section className="-mt-7">
+    <section className="-mt-7 max-[320px]:-mt-10">
       <SearchBar
         searchedInput={searchedInput}
         onHandleSearch={onHandleSearch}
@@ -48,6 +49,7 @@ const Home: React.FC<HomeProps> = ({
         filtered={filtered}
         darkTheme={darkTheme}
       />
+      <ArrowToTop />
     </section>
   );
 };

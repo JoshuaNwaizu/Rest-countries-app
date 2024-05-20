@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { IoArrowUpOutline } from 'react-icons/io5';
 
 type Country = {
   flags: { png: string; svg: string };
@@ -20,21 +21,22 @@ const CountryData: React.FC<filteredProps> = ({ filtered, darkTheme }) => {
 
   return (
     <>
-      <section className="flex flex-col gap-12 my-[2.5rem] min-[768px]:flex-row min-[768px]:flex-wrap min-[768px]:justify-center">
+      <section className="flex flex-col gap-12 my-[2.5rem] min-[768px]:flex-row min-[768px]:flex-wrap min-[768px]:justify-center ">
         {filtered.map((item) => (
           <Link
             to={`/countries/${item?.cca3}`}
             key={item.flags.png}
+            className=" cursor-pointer "
           >
-            <div className="flex flex-col items-center justify-center ">
+            <article className="flex flex-col items-center justify-center ">
               <div
-                className={`flex flex-col gap-7 justify-center  ${darkAndLightBackground} shadow-md w-[312px] h-[410px] rounded-md`}
+                className={`flex flex-col gap-7 justify-center  ${darkAndLightBackground} shadow-md w-[312px] h-[410px] rounded-md max-[320px]:w-[280px]`}
               >
-                <div className="">
+                <div className="max-[320px]:flex max-[320px]:items-center max-[320px]:justify-center">
                   <img
                     src={item?.flags.png}
                     alt={item?.name.common}
-                    className="rounded-md w-[312px] h-[210px]"
+                    className="rounded-md w-[312px] h-[210px] max-[320px]:w-[280px] max-[320px]:h-[210px]"
                   />
                 </div>
                 <article
@@ -61,9 +63,18 @@ const CountryData: React.FC<filteredProps> = ({ filtered, darkTheme }) => {
                   </div>
                 </article>
               </div>
-            </div>
+            </article>
           </Link>
         ))}
+
+        <section className="hidden">
+          <a href="top">
+            <span className="fixed right-[1rem] text-gray-600 min-[884px]:right-[3rem] inline-flex bottom-[10%] font-bold text-xl bg-[#FFF] p-3 min-[1024px]:p-5 min-[1024px]:text-[1.5rem] shadow-xl rounded-lg">
+              {' '}
+              <IoArrowUpOutline />
+            </span>
+          </a>{' '}
+        </section>
       </section>
     </>
   );
