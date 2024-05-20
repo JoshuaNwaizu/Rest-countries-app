@@ -3,17 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 body {
-    font-family: "Nunito Sans", sans-serif;
-    background-color: #FAFAFA;
-
+  font-family: 'Nunito Sans', sans-serif;
+  /* background-color: #FAFAFA; */
 }

@@ -6,7 +6,7 @@ const Loading: React.FC<IsLoading> = ({ darkTheme }) => {
   const darkAndLightBackground = darkTheme ? 'bg-[#4e5b62]' : 'bg-[#fff]';
   return (
     <>
-      <div className="flex items-center justify-center h-[90vh] -mt-7">
+      <div className="flex items-center justify-center h-[100vh] -mt-7">
         <figure
           className={`rounded-full flex items-center justify-center shadow-lg h-[50px] w-[50px]v${darkAndLightBackground}`}
         >

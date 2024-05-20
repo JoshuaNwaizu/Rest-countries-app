@@ -46,8 +46,8 @@ const CountryInfo: React.FC<IsLoading> = ({
 
   useEffect(() => {
     const fetchCountries = async (): Promise<void> => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const res = await fetch(`https://restcountries.com/v3.1/alpha/${name}`);
         const data: CountryInfo[] = await res.json();
         setCountryInfo(data);
