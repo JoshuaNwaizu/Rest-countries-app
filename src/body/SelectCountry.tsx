@@ -28,9 +28,8 @@ const SelectCountry: React.FC<CountryProps> = ({
 
   const handleSelectOption = (item: string): void => {
     setOptionTitle(item);
-    setOpenSelectedBox(!openSelectBox);
     applyingFilters();
-    console.log(item);
+    setOpenSelectedBox(!openSelectBox);
   };
 
   return (
@@ -56,13 +55,13 @@ const SelectCountry: React.FC<CountryProps> = ({
           <div
             className={`flex flex-col w-[55.5%] gap-2 px-6 py-4 ${darkAndLightBackground} ] shadow-md rounded-lg absolute mt-2 min-[768px]:right-4  min-[768px]:w-[24.5%]`}
           >
-            {continent.map((item: string) => (
+            {continent.map((region: string) => (
               <p
-                key={item}
-                onClick={() => handleSelectOption(item)}
+                key={region}
+                onClick={() => handleSelectOption(region)}
                 className={darkAndLightText}
               >
-                {item}
+                {region}
               </p>
             ))}
           </div>

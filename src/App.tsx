@@ -26,7 +26,7 @@ function App() {
   const [isCountries, setIsCountries] = useState<Country[]>([]);
   const [filtered, setFiltered] = useState<Country[]>([]);
   const [searchedInput, setSearchedInput] = useState<Inputs>('');
-  const [optionTitle, setOptionTitle] = useState<Option>('');
+  const [optionTitle, setOptionTitle] = useState<Option>();
   const [isLoading, setIsLoading] = useState<Loading>(false);
   const [darkTheme, setDarkTheme] = useState<Loading>(() => {
     const savedTheme = localStorage.getItem('darkMode');
@@ -102,13 +102,15 @@ function App() {
       }
     };
 
-    applyingFilters();
     fetchCountries();
   }, []);
+  useEffect(() => {
+    applyingFilters();
+  }, [optionTitle, searchedInput]);
 
   useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(darkTheme));
-  }, [darkTheme]);
+  }, [darkTheme, optionTitle]);
 
   return (
     <div
